@@ -38,5 +38,22 @@ def insert_customers():
     field_names = [i[0] for i in c.description]
     return {"data": final_result, "coloum": field_names}
 
+@app.route('/customers/update')
+def update_customers():
+    host = 'localhost'
+    user = 'root'
+    password = 'sivakavi'
+    port = 3306
+    db = 'my schema details'
+    db = sql.connect(host = host, user = user, password = password, port = port, db = db)
+    c=db.cursor()
+    query = "UPDATE customers SET phone = '9788671743' WHERE customerNumber = '496'"
+    c.execute(query)
+    db.commit()  
+    c.execute("""select * from customers""") 
+    final_result = c.fetchall()
+    field_names = [i[0] for i in c.description]
+    return {"data": final_result, "coloum": field_names}
+
 if __name__ == '__main__':
    app.run()
