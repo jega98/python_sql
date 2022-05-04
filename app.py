@@ -55,8 +55,8 @@ def update_customers():
     field_names = [i[0] for i in c.description]
     return {"data": final_result, "coloum": field_names}
 
-@app.route('/orders/delete')
-def delete_orders():
+@app.route('/orders/delete/<int:orderID>')
+def delete_orders(orderID):
     host = 'localhost'
     user = 'root'
     password = 'sivakavi'
@@ -64,7 +64,7 @@ def delete_orders():
     db = 'my schema details'
     db = sql.connect(host = host, user = user, password = password, port = port, db = db)
     c=db.cursor()
-    query = "DELETE FROM orders WHERE orderNumber = '10100'"
+    query = "DELETE FROM orders WHERE orderNumber ="+str(orderID)
     c.execute(query)
     db.commit()
 
